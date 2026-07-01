@@ -84,13 +84,14 @@ h5 {
   scrollbar-width: none;
 }
 
-/* ─── Glass card utility ───────────────────────── */
+/* ─── Glass card utility ─────────────── */
 .glass {
-  background: rgba(13, 20, 37, 0.7);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* ─── Fade-in animation ────────────────────────── */

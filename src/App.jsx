@@ -407,8 +407,9 @@ function App() {
       )}
 
       {/* Premium Aesthetic Glowing Background Ornaments */}
-      <div className="fixed top-[-10%] right-[-10%] w-[45%] h-[40%] rounded-full bg-blue-600/5 blur-[140px] pointer-events-none"></div>
-      <div className="fixed bottom-[-10%] left-[-10%] w-[35%] h-[35%] rounded-full bg-purple-600/5 blur-[120px] pointer-events-none"></div>
+      <div className="fixed top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[140px] pointer-events-none"></div>
+      <div className="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/20 blur-[120px] pointer-events-none"></div>
+      <div className="fixed top-[40%] left-[20%] w-[30%] h-[30%] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none"></div>
     </div>
   );
 }
