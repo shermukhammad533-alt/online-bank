@@ -7,6 +7,7 @@ import PaymentsView from './components/PaymentsView';
 import AnalyticsView from './components/AnalyticsView';
 import DepositsView from './components/DepositsView';
 import CreditCard from './components/CreditCard';
+import ProfileView from './components/ProfileView';
 import { User, Smartphone, ShoppingBag, X, Plus } from 'lucide-react';
 import './index.css';
 
@@ -60,6 +61,12 @@ function App() {
   const [language, setLanguage] = useState('uz'); // Default language Uzbek
   const [activeMenu, setActiveMenu] = useState('Home');
   const [activeCard, setActiveCard] = useState(0);
+
+  // User Profile State
+  const [userProfile, setUserProfile] = useState({
+    name: 'Shirin Karimova',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop'
+  });
 
   // Start empty — user adds their own cards
   const [cards, setCards] = useState([]);
@@ -164,7 +171,8 @@ function App() {
       currency: newCardCurrency
     };
 
-    setCards(prev => [...prev, finalCard]);
+    setCards(prev => [finalCard, ...prev]);
+    setActiveCard(0);
     setIsAddCardOpen(false);
 
     // Reset fields
@@ -183,9 +191,11 @@ function App() {
         return (
           <Dashboard
             cards={cards}
+            setCards={setCards}
             activeCard={activeCard}
             setActiveCard={setActiveCard}
             activities={activities}
+            onAddActivity={handleAddActivity}
             language={language}
             locales={locales}
             onNavigate={handleNavigate}
@@ -231,6 +241,15 @@ function App() {
             locales={locales}
           />
         );
+      case 'Profile':
+        return (
+          <ProfileView
+            language={language}
+            userProfile={userProfile}
+            setUserProfile={setUserProfile}
+            activities={activities}
+          />
+        );
       default:
         return (
           <div className="text-center py-20 text-gray-500">
@@ -241,7 +260,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0b1120] text-gray-100 selection:bg-blue-600/30">
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: '#080d1a', color: '#f0f2f8' }}>
       {/* Sidebar navigation */}
       <Sidebar
         activeMenu={activeMenu}
@@ -251,14 +270,16 @@ function App() {
       />
 
       {/* Main scrollable body */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, height: '100vh', overflow: 'hidden' }}>
         <Topbar
           language={language}
           onChangeLanguage={setLanguage}
           locales={locales}
+          userProfile={userProfile}
+          onOpenProfile={() => handleNavigate('Profile')}
         />
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+        <main style={{ flex: 1, overflowY: 'auto', padding: '32px' }}>
           {renderActiveView()}
         </main>
       </div>

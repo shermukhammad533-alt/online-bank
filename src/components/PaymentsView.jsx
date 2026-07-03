@@ -1,9 +1,32 @@
 import React, { useState } from 'react';
-import { Zap, CheckCircle2, RotateCcw, ChevronDown, Smartphone, Lightbulb, Flame, Droplets, Landmark } from 'lucide-react';
+import { Zap, CheckCircle2, RotateCcw, ChevronDown, Smartphone, Flame, Droplets, Landmark } from 'lucide-react';
+
+const C = {
+    panel: 'rgba(13,20,37,0.85)',
+    border: 'rgba(255,255,255,0.07)',
+    text1: '#f0f2f8',
+    text2: '#8891a8',
+    text3: '#525b6e',
+    green: '#34d399',
+    red: '#f87171',
+};
+
+const inputStyle = (focused) => ({
+    width: '100%',
+    background: 'rgba(255,255,255,0.04)',
+    border: `1px solid ${focused ? 'rgba(59,130,246,0.55)' : C.border}`,
+    borderRadius: 14,
+    padding: '14px 18px',
+    fontSize: 15,
+    color: C.text1,
+    outline: 'none',
+    fontFamily: 'Inter,sans-serif',
+    transition: 'border-color 0.2s',
+});
 
 const SERVICES = [
     {
-        id: 'mobile', icon: <Smartphone size={24} />,
+        id: 'mobile', Icon: Smartphone, color: '#60a5fa',
         uz: 'Mobil aloqa', en: 'Mobile Operators',
         providers: [
             { id: 'beeline', name: 'Beeline', color: 'from-yellow-400 to-yellow-600', text: 'text-yellow-400' },
@@ -13,22 +36,22 @@ const SERVICES = [
         ],
     },
     {
-        id: 'electricity', icon: <Lightbulb size={24} />,
+        id: 'electricity', Icon: Zap, color: '#FBBF24',
         uz: 'Elektr energiyasi', en: 'Electricity',
         providers: [{ id: 'energo', name: 'Hududenergo', color: 'from-amber-400 to-amber-600', text: 'text-amber-400' }],
     },
     {
-        id: 'gas', icon: <Flame size={24} />,
-        uz: 'Gaz ta\'minoti', en: 'Gas Supply',
-        providers: [{ id: 'hududgaz', name: 'Hududgaz', color: 'from-orange-500 to-red-600', text: 'text-orange-400' }],
+        id: 'gas', Icon: Flame, color: '#F87171',
+        uz: "Gaz ta'minoti", en: 'Gas Supply',
+        providers: [{ id: 'hududgaz', name: 'Hududgaz', color: '#EF4444' }],
     },
     {
-        id: 'water', icon: <Droplets size={24} />,
-        uz: 'Suv ta\'minoti', en: 'Water Supply',
-        providers: [{ id: 'suvsoz', name: 'Suvsoz', color: 'from-cyan-400 to-blue-600', text: 'text-cyan-400' }],
+        id: 'water', Icon: Droplets, color: '#38BDF8',
+        uz: "Suv ta'minoti", en: 'Water Supply',
+        providers: [{ id: 'suvsoz', name: 'Suvsoz', color: '#3B82F6' }],
     },
     {
-        id: 'tax', icon: <Landmark size={24} />,
+        id: 'tax', Icon: Landmark, color: '#A78BFA',
         uz: 'Davlat soliqlari', en: 'Government Tax',
         providers: [{ id: 'soliq', name: "Soliq Qo'mitasi", color: 'from-indigo-400 to-purple-600', text: 'text-indigo-400' }],
     },
@@ -105,9 +128,9 @@ const PaymentsView = ({ cards, onUpdateCards, onAddActivity, language }) => {
     return (
         <div className="max-w-[1200px] mx-auto animate-fade-in pb-20">
             {/* Header */}
-            <div className="flex items-center gap-5 mb-10">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shadow-lg shadow-amber-500/10 flex-shrink-0">
-                    <Zap size={30} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 36 }}>
+                <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Zap size={24} style={{ color: '#FBBF24' }} />
                 </div>
                 <div>
                     <h1 className="text-3xl font-bold text-white font-sans tracking-tight mb-1">
@@ -125,22 +148,33 @@ const PaymentsView = ({ cards, onUpdateCards, onAddActivity, language }) => {
                     <p className="text-[11px] text-gray-500 font-bold uppercase tracking-widest mb-4">
                         {isUz ? "Kategoriya" : "Category"}
                     </p>
-                    <div className="flex flex-col gap-3">
-                        {SERVICES.map(svc => {
-                            const active = activeService === svc.id;
-                            return (
-                                <button key={svc.id} onClick={() => { setActiveService(svc.id); setActiveProvider(svc.providers[0].id); setError(''); }}
-                                    className={`flex items-center gap-4 p-4 rounded-2xl cursor-pointer text-left transition-all duration-300 ${active ? 'bg-gradient-to-r from-blue-600/20 to-indigo-600/10 border border-blue-500/50 shadow-lg shadow-blue-500/10 transform scale-[1.02]' : 'bg-[#0a0f1c]/50 border border-white/5 hover:bg-white/5 hover:border-white/10'}`}>
-                                    <div className={`flex items-center justify-center w-12 h-12 rounded-xl ${active ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-gray-400'}`}>
-                                        {svc.icon}
-                                    </div>
-                                    <span className={`text-base ${active ? 'text-white font-bold' : 'text-gray-300 font-medium'}`}>
-                                        {isUz ? svc.uz : svc.en}
-                                    </span>
-                                </button>
-                            );
-                        })}
-                    </div>
+                    {SERVICES.map(svc => {
+                        const active = activeService === svc.id;
+                        return (
+                            <button key={svc.id} onClick={() => { setActiveService(svc.id); setActiveProvider(svc.providers[0].id); setError(''); }}
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px',
+                                    borderRadius: 14, cursor: 'pointer', textAlign: 'left',
+                                    background: active ? 'rgba(59,130,246,0.1)' : 'rgba(255,255,255,0.03)',
+                                    border: `1px solid ${active ? 'rgba(59,130,246,0.3)' : C.border}`,
+                                    transition: 'all 0.18s',
+                                }}>
+                                <div style={{
+                                    width: 34, height: 34, borderRadius: 10, flexShrink: 0,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: active ? `${svc.color}22` : 'rgba(255,255,255,0.05)',
+                                    border: `1px solid ${active ? svc.color + '44' : 'rgba(255,255,255,0.07)'}`,
+                                    color: active ? svc.color : '#525b6e',
+                                    transition: 'all 0.18s',
+                                }}>
+                                    <svc.Icon size={17} />
+                                </div>
+                                <span style={{ color: active ? '#60a5fa' : C.text1, fontSize: 14, fontWeight: active ? 700 : 500 }}>
+                                    {isUz ? svc.uz : svc.en}
+                                </span>
+                            </button>
+                        );
+                    })}
                 </div>
 
                 {/* Payment form */}
