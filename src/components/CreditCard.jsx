@@ -67,7 +67,7 @@ const CreditCard = ({ type, number, balance, expiry, color, active, currency = '
     }
 
     return (
-        <div className={`relative min-w-[300px] w-[300px] h-48 rounded-[24px] p-6 text-white overflow-hidden transition-all duration-300 select-none ${active ? 'scale-105 shadow-xl shadow-blue-500/25 ring-2 ring-blue-400/50' : 'opacity-70 hover:opacity-90 scale-100 border border-white/5'}`}>
+        <div className={`relative min-w-[360px] w-[360px] h-[216px] rounded-md p-7 text-white overflow-hidden transition-all duration-300 select-none ${active ? 'scale-105 shadow-xl shadow-blue-500/25 ring-2 ring-blue-400/50' : 'opacity-70 hover:opacity-90 scale-100 border border-white/5'}`}>
             {/* Background Gradient */}
             <div className={`absolute inset-0 bg-gradient-to-br ${getGradient()}`}></div>
             <div className="absolute inset-0 bg-black/15 backdrop-blur-[0.5px]"></div>
@@ -79,8 +79,8 @@ const CreditCard = ({ type, number, balance, expiry, color, active, currency = '
                 {/* Header */}
                 <div className="flex justify-between items-start">
                     <div className="flex flex-col">
-                        <span className="font-semibold text-xs tracking-wider text-white/90">APEX BANK</span>
-                        <span className="text-[7px] uppercase tracking-widest text-white/60">Premium Club</span>
+                        <span className="font-semibold text-sm tracking-wider text-white/90">APEX BANK</span>
+                        <span className="text-[9px] uppercase tracking-widest text-white/60">Premium Club</span>
                     </div>
                     {renderCardLogo()}
                 </div>
@@ -104,18 +104,18 @@ const CreditCard = ({ type, number, balance, expiry, color, active, currency = '
 
                 {/* Card Number */}
                 <div>
-                    <p className="text-base tracking-[3px] font-mono leading-none">{number}</p>
+                    <p className="text-xl tracking-[4px] font-mono leading-none">{number}</p>
                 </div>
 
                 {/* Footer Balance & Expiry */}
                 <div className="flex justify-between items-end">
                     <div className="space-y-0.5">
-                        <p className="text-[8px] uppercase tracking-wider text-white/50">Balans</p>
-                        <p className="text-lg font-bold font-sans tracking-tight">{formatBalance(balance)}</p>
+                        <p className="text-[10px] uppercase tracking-wider text-white/50">Balans</p>
+                        <p className="text-2xl font-bold font-sans tracking-tight">{formatBalance(balance)}</p>
                     </div>
                     <div className="text-right">
-                        <p className="text-[7px] uppercase tracking-wider text-white/50">Yaroqlilik</p>
-                        <p className="text-xs font-mono font-medium">{expiry}</p>
+                        <p className="text-[9px] uppercase tracking-wider text-white/50">Yaroqlilik</p>
+                        <p className="text-sm font-mono font-medium">{expiry}</p>
                     </div>
                 </div>
             </div>

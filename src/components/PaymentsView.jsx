@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Zap, CheckCircle2, RotateCcw, ChevronDown } from 'lucide-react';
+import { Zap, CheckCircle2, RotateCcw, ChevronDown, Smartphone, Flame, Droplets, Landmark } from 'lucide-react';
 
 const C = {
     panel: 'rgba(13,20,37,0.85)',
@@ -26,7 +26,7 @@ const inputStyle = (focused) => ({
 
 const SERVICES = [
     {
-        id: 'mobile', icon: '📱',
+        id: 'mobile', Icon: Smartphone, color: '#60a5fa',
         uz: 'Mobil aloqa', en: 'Mobile Operators',
         providers: [
             { id: 'beeline', name: 'Beeline', color: '#FFD700' },
@@ -36,22 +36,22 @@ const SERVICES = [
         ],
     },
     {
-        id: 'electricity', icon: '⚡',
+        id: 'electricity', Icon: Zap, color: '#FBBF24',
         uz: 'Elektr energiyasi', en: 'Electricity',
         providers: [{ id: 'energo', name: 'Hududenergo', color: '#F59E0B' }],
     },
     {
-        id: 'gas', icon: '🔥',
-        uz: 'Gaz ta\'minoti', en: 'Gas Supply',
+        id: 'gas', Icon: Flame, color: '#F87171',
+        uz: "Gaz ta'minoti", en: 'Gas Supply',
         providers: [{ id: 'hududgaz', name: 'Hududgaz', color: '#EF4444' }],
     },
     {
-        id: 'water', icon: '💧',
-        uz: 'Suv ta\'minoti', en: 'Water Supply',
+        id: 'water', Icon: Droplets, color: '#38BDF8',
+        uz: "Suv ta'minoti", en: 'Water Supply',
         providers: [{ id: 'suvsoz', name: 'Suvsoz', color: '#3B82F6' }],
     },
     {
-        id: 'tax', icon: '🏛️',
+        id: 'tax', Icon: Landmark, color: '#A78BFA',
         uz: 'Davlat soliqlari', en: 'Government Tax',
         providers: [{ id: 'soliq', name: "Soliq Qo'mitasi", color: '#8B5CF6' }],
     },
@@ -129,7 +129,9 @@ const PaymentsView = ({ cards, onUpdateCards, onAddActivity, language }) => {
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 36 }}>
-                <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, flexShrink: 0 }}>⚡</div>
+                <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Zap size={24} style={{ color: '#FBBF24' }} />
+                </div>
                 <div>
                     <h1 style={{ color: C.text1, fontSize: 26, fontWeight: 800, fontFamily: 'Outfit,sans-serif', marginBottom: 4 }}>
                         {isUz ? "Xizmatlar to'lovi" : "Service Payments"}
@@ -158,7 +160,16 @@ const PaymentsView = ({ cards, onUpdateCards, onAddActivity, language }) => {
                                     border: `1px solid ${active ? 'rgba(59,130,246,0.3)' : C.border}`,
                                     transition: 'all 0.18s',
                                 }}>
-                                <span style={{ fontSize: 22 }}>{svc.icon}</span>
+                                <div style={{
+                                    width: 34, height: 34, borderRadius: 10, flexShrink: 0,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: active ? `${svc.color}22` : 'rgba(255,255,255,0.05)',
+                                    border: `1px solid ${active ? svc.color + '44' : 'rgba(255,255,255,0.07)'}`,
+                                    color: active ? svc.color : '#525b6e',
+                                    transition: 'all 0.18s',
+                                }}>
+                                    <svc.Icon size={17} />
+                                </div>
                                 <span style={{ color: active ? '#60a5fa' : C.text1, fontSize: 14, fontWeight: active ? 700 : 500 }}>
                                     {isUz ? svc.uz : svc.en}
                                 </span>

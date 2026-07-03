@@ -14,12 +14,15 @@ const Sidebar = ({ activeMenu, setActiveMenu, language }) => {
 
     return (
         <aside
-            className="hidden lg:flex flex-col h-screen sticky top-0 overflow-y-auto"
+            className="hidden lg:flex flex-col"
             style={{
                 background: 'linear-gradient(180deg, #0a1020 0%, #080d1a 100%)',
                 borderRight: '1px solid rgba(255,255,255,0.05)',
                 width: 240,
                 minWidth: 240,
+                height: '100vh',
+                overflowY: 'auto',
+                flexShrink: 0,
             }}
         >
             {/* Logo */}
